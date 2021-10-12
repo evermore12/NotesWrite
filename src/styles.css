@@ -19,3 +19,11 @@ main > h1 {
   text-align: center;
   font-size: 3.5em;
 }
+main > textarea, button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+main > button {
+  margin-top: 2%;
+}

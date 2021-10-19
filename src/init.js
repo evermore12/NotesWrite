@@ -1,20 +1,17 @@
-async function sendText(element) {
-    console.log(element)
-    let note = document.getElementById("note").value
-    let response = await fetch("api/postnote", {
-        method: "POST",
-        body: JSON.stringify({username: "jonathan", note: note})
-    })
-}
-
-// document.querySelector("#save").addEventListener('click', sendText)
-
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     document.getElementById('note').focus()
-
+    let version = 0
     let timeout = null
-    document.getElementById('note').addEventListener('input', (element) => {
+    document.getElementById('note').addEventListener('input', async (element) => {
+        let note = element.target.value
         clearTimeout(timeout)
-        timeout = setTimeout(sendText, 3000, element)
+        timeout = setTimeout(() => {
+            fetch('api/postnote/jonathan', {
+                method: "POST",
+                body: JSON.stringify({PartitionKey: "jonathan", Note: note, Version: version})
+            })
+            version++;
+        }, 3000, note, version)
     })
 })
+
